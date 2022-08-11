@@ -13,23 +13,14 @@ public class TransferPage {
     private SelenideElement applyButton = $("[data-test-id=action-transfer]");
     private SelenideElement notification = $("[data-test-id=error-notification]");
 
-    public TransferPage importTransferDataSecondToFirst(int value) {
+    public void importTransfer(int value, String cardNumber) {
         transferSumField.setValue(Integer.toString(value));
-        transferCardField.setValue(String.valueOf(DataHelper.getSecondCardNumber()));
+        transferCardField.setValue(String.valueOf(cardNumber));
         applyButton.click();
-        return new TransferPage();
-    }
-
-    public TransferPage importTransferDataFirstToSecond(int value) {
-        transferSumField.setValue(Integer.toString(value));
-        transferCardField.setValue(String.valueOf(DataHelper.getFirstCardNumber()));
-        applyButton.click();
-        return new TransferPage();
     }
 
     public void getNotification() {
-        notification.shouldHave(exactText("Перевод не возможен. Баланс карты превышен"));
-        notification.shouldBe(visible);
+        notification.shouldHave(exactText("Перевод не возможен. Баланс карты превышен")).shouldBe(visible);
     }
 }
 
